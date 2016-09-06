@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechJini.TransformDocument", "TechJini.TransformDocument\TechJini.TransformDocument.csproj", "{BE06150C-313F-450D-A596-61A3ACA8D12F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechJini.TransformDocument", "TechJini.TransformDocument\TechJini.TransformDocument.csproj", "{FD3D5CFD-0614-4B63-A293-41D83BA8FBCD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BE06150C-313F-450D-A596-61A3ACA8D12F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE06150C-313F-450D-A596-61A3ACA8D12F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE06150C-313F-450D-A596-61A3ACA8D12F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE06150C-313F-450D-A596-61A3ACA8D12F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD3D5CFD-0614-4B63-A293-41D83BA8FBCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD3D5CFD-0614-4B63-A293-41D83BA8FBCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD3D5CFD-0614-4B63-A293-41D83BA8FBCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD3D5CFD-0614-4B63-A293-41D83BA8FBCD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
