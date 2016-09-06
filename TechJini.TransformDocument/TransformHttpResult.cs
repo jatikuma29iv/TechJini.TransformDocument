@@ -37,7 +37,7 @@ namespace TechJini.TransformDocument
 
         public HttpResponseMessage GetResponseMessage()
         {
-            var html = DocumentManager.LoadResourceString(assetInfo);
+            var html = TransformDocument.LoadResourceString(assetInfo);
 
             return new HttpResponseMessage()
             {

@@ -14,12 +14,46 @@
  * limitations under the License.
  */
 
+using System;
+
 namespace TechJini.TransformDocument
 {
     public class Document
     {
+        public string Content { get; set; }
+
         public string Name { get; set; }
+
+        public string Path {
+            get
+            {
+                return _path;
+            }
+            set
+            {
+                Name = value;
+                _path = value;
+            }
+        }
+
         public DocumentType Type { get; set; }
+
+        public Uri Url
+        {
+            get
+            {
+                return _url;
+            }
+            set
+            {
+                _url = value;
+                Name = _url.AbsolutePath;
+            }
+        }
+
         public object Values { get; set; }
+
+        string _path;
+        Uri _url;
     }
 }

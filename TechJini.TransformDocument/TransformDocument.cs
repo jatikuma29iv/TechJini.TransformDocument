@@ -22,34 +22,12 @@ using System.IO;
 
 namespace TechJini.TransformDocument
 {
-    class DocumentManager
+    public class TransformDocument
     {
         static ConcurrentDictionary<string, string> ResourceStrings = new ConcurrentDictionary<string, string>();
 
-        internal static string LoadResourceString(string name, DocumentType type)
+        public static string LoadContentString(string value, IDictionary<string, object> values)
         {
-            string value;
-            if (!ResourceStrings.TryGetValue(name, out value))
-            {
-                switch (type)
-                {
-                    case DocumentType.Embedded:
-                        value = LoadEmbedded(name);
-                        break;
-                    case DocumentType.File:
-                        value = LoadFile(name);
-                        break;
-                    default:
-                        throw new Exception();
-                }
-                ResourceStrings[name] = value;
-            }
-            return value;
-        }
-
-        internal static string LoadResourceString(string name, DocumentType type, IDictionary<string, object> values)
-        {
-            string value = LoadResourceString(name, type);
             foreach (var key in values.Keys)
             {
                 var val = values[key];
@@ -58,9 +36,9 @@ namespace TechJini.TransformDocument
             return value;
         }
 
-        internal static string LoadResourceString(string name, DocumentType type, object values)
+        public static string LoadContentString(string content, object values)
         {
-            return LoadResourceString(name, type, Map(values));
+            return LoadContentString(content, Map(values));
         }
 
         static IDictionary<string, object> Map(object values)
@@ -81,24 +59,60 @@ namespace TechJini.TransformDocument
 
         public static string LoadResourceString(Document asset)
         {
-            return LoadResourceString(asset.Name, asset.Type, asset.Values);
+            string value;
+
+            if (asset.Type == DocumentType.Content)
+            {
+                return LoadContentString(asset.Content, asset.Values);
+            }
+
+            if (!ResourceStrings.TryGetValue(asset.Name, out value))
+            {
+                switch (asset.Type)
+                {
+                    case DocumentType.Embedded:
+                        value = LoadEmbeddedString(asset.Name, asset.Values);
+                        break;
+                    case DocumentType.File:
+                        value = LoadFileString(asset.Path, asset.Values);
+                        break;
+                    case DocumentType.Url:
+                        value = LoadUrlString(asset.Url, asset.Values);
+                        break;
+                    default:
+                        throw new Exception();
+                }
+                ResourceStrings[asset.Name] = value;
+            }
+            return value;
         }
 
-        static string LoadEmbedded(string name)
+        public static string LoadEmbeddedString(string name, object value)
         {
-            var assembly = typeof(DocumentManager).Assembly;
+            string content;
+            var assembly = typeof(TransformDocument).Assembly;
             using (var sr = new StreamReader(assembly.GetManifestResourceStream(name)))
             {
-                return sr.ReadToEnd();
+                content = sr.ReadToEnd();
             }
+
+            return LoadContentString(content, value);
         }
 
-        static string LoadFile(string name)
+        public static string LoadFileString(string name, object value)
         {
+            string content;
             using (StreamReader streamReader = new StreamReader(name))
             {
-                return streamReader.ReadToEnd();
+                content = streamReader.ReadToEnd();
             }
+
+            return LoadContentString(content, value);
+        }
+
+        static string LoadUrlString(Uri name, object value)
+        {
+            throw new Exception();
         }
     }
 }
