@@ -23,11 +23,11 @@ namespace TechJini.TransformDocument
 {
     public class TransformHttpResult : IHttpActionResult, ITransformDocument
     {
-        private Document assetInfo;
+        private TjTrDoc docInfo;
 
-        public TransformHttpResult(Document asset)
+        public TransformHttpResult(TjTrDoc doc)
         {
-            assetInfo = asset;
+            docInfo = doc;
         }
 
         public Task<System.Net.Http.HttpResponseMessage> ExecuteAsync(System.Threading.CancellationToken cancellationToken)
@@ -37,7 +37,7 @@ namespace TechJini.TransformDocument
 
         public HttpResponseMessage GetResponseMessage()
         {
-            var html = TransformDocument.LoadResourceString(assetInfo);
+            var html = TransformDocument.LoadResourceString(docInfo);
 
             return new HttpResponseMessage()
             {

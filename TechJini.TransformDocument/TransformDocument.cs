@@ -25,13 +25,15 @@ namespace TechJini.TransformDocument
     public class TransformDocument
     {
         static ConcurrentDictionary<string, string> ResourceStrings = new ConcurrentDictionary<string, string>();
+        static string patternStart = "<!--";
+        static string patternEnd = "-->";
 
         public static string LoadContentString(string value, IDictionary<string, object> values)
         {
             foreach (var key in values.Keys)
             {
                 var val = values[key];
-                value = value.Replace("@{" + key + "}", val != null ? val.ToString() : "");
+                value = value.Replace(patternStart + key + patternEnd, val != null ? val.ToString() : "");
             }
             return value;
         }
@@ -57,32 +59,32 @@ namespace TechJini.TransformDocument
             return dictionary;
         }
 
-        public static string LoadResourceString(Document asset)
+        public static string LoadResourceString(TjTrDoc doc)
         {
             string value;
 
-            if (asset.Type == DocumentType.Content)
+            if (doc.Type == TjTrDocTypes.Content)
             {
-                return LoadContentString(asset.Content, asset.Values);
+                return LoadContentString(doc.Content, doc.Values);
             }
 
-            if (!ResourceStrings.TryGetValue(asset.Name, out value))
+            if (!ResourceStrings.TryGetValue(doc.Name, out value))
             {
-                switch (asset.Type)
+                switch (doc.Type)
                 {
-                    case DocumentType.Embedded:
-                        value = LoadEmbeddedString(asset.Name, asset.Values);
+                    case TjTrDocTypes.Embedded:
+                        value = LoadEmbeddedString(doc.Name, doc.Values);
                         break;
-                    case DocumentType.File:
-                        value = LoadFileString(asset.Path, asset.Values);
+                    case TjTrDocTypes.File:
+                        value = LoadFileString(doc.Path, doc.Values);
                         break;
-                    case DocumentType.Url:
-                        value = LoadUrlString(asset.Url, asset.Values);
+                    case TjTrDocTypes.Url:
+                        value = LoadUrlString(doc.Url, doc.Values);
                         break;
                     default:
                         throw new Exception();
                 }
-                ResourceStrings[asset.Name] = value;
+                ResourceStrings[doc.Name] = value;
             }
             return value;
         }

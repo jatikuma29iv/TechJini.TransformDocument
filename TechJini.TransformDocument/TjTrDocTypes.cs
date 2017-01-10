@@ -16,7 +16,7 @@
 
 namespace TechJini.TransformDocument
 {
-    public enum DocumentType
+    public enum TjTrDocTypes
     {
         File,
         Url,

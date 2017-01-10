@@ -18,12 +18,18 @@ using System;
 
 namespace TechJini.TransformDocument
 {
-    public class Document
+    public class TjTrDoc
     {
+        /// <summary>
+        /// If the template is in the form of a string
+        /// </summary>
         public string Content { get; set; }
 
         public string Name { get; set; }
 
+        /// <summary>
+        /// if the template is in a file
+        /// </summary>
         public string Path {
             get
             {
@@ -36,8 +42,14 @@ namespace TechJini.TransformDocument
             }
         }
 
-        public DocumentType Type { get; set; }
+        /// <summary>
+        /// is template in string, file, 
+        /// </summary>
+        public TjTrDocTypes Type { get; set; }
 
+        /// <summary>
+        /// if the template is stored in a url
+        /// </summary>
         public Uri Url
         {
             get
@@ -51,6 +63,9 @@ namespace TechJini.TransformDocument
             }
         }
 
+        /// <summary>
+        /// the values that needs to be applied to the template
+        /// </summary>
         public object Values { get; set; }
 
         string _path;
